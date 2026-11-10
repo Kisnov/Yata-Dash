@@ -20,6 +20,13 @@ All notable changes to Yata, newest first. Versions are date-based builds:
   alert.** Discord messages no longer allow mentions, so an event named
   `@everyone` stays text; Telegram messages are escaped, so a stray `_` or `*`
   no longer gets them rejected.
+### Security
+
+- **A saved key or cookie no longer follows a URL to another host.** Changing
+  a tracker's URL, or the qui, Prowlarr or Jackett address, to a different
+  host, port or scheme now clears the saved key, cookie or password unless a
+  new one is entered with it, and a tracker Test against an unsaved address
+  uses only what is typed. Path and trailing-slash edits keep them as before.
 
 ## [Beta-20261011]
 
