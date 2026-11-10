@@ -355,6 +355,27 @@ export function safeUrl(raw: unknown): string {
   }
 }
 
+/**
+ * A CSS colour safe for a style attribute, or ''. An allow-list, not an escape:
+ * `red;background:url(//evil/)` has nothing for esc() to catch.
+ */
+export function safeColor(raw: unknown): string {
+  const s = String(raw ?? '').trim();
+  if (!s || s.length > 64) return '';
+  if (/^#(?:[0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})$/i.test(s)) return s;
+  if (/^(?:rgba?|hsla?)\([\d\s.,%/]+\)$/i.test(s)) return s;
+  if (/^var\(--[\w-]+\)$/.test(s)) return s;
+  if (/^[a-z]+$/i.test(s)) return s;
+  return '';
+}
+
+/** A class list safe for a class attribute (tracker/def icons), or ''. */
+export function safeIconClass(raw: unknown): string {
+  // Rejected, not stripped: stripping could turn a malformed value into a valid one.
+  const s = String(raw ?? '').trim();
+  return s.length <= 60 && /^[\w\s-]+$/.test(s) ? s : '';
+}
+
 /** Minimal numeric format — returns null for non-numeric values */
 export function safeNum(val: unknown, decimals = 2): string | null {
   if (val == null || val === '') return null;
