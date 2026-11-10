@@ -6,6 +6,27 @@ All notable changes to Yata, newest first. Versions are date-based builds:
 
 ## [Unreleased]
 
+### Security
+
+- **A saved key or cookie no longer follows a URL to another host.** Changing
+  a tracker's URL, or the qui, Prowlarr or Jackett address, to a different
+  host, port or scheme now clears the saved key, cookie or password unless a
+  new one is entered with it, and a tracker Test against an unsaved address
+  uses only what is typed. Path and trailing-slash edits keep them as before.
+- **Tracker credentials stay on the tracker's own host.** A definition path not
+  starting with a single "/" is refused, since it could send the API key or
+  cookie elsewhere; API keys no longer follow redirects to another host; and
+  responses from trackers and Prowlarr/Jackett/QUI are capped at 8 MiB.
+
+### Changed
+
+- **Build toolchain refreshed.** The image builds the frontend on Node 24 LTS
+  (Node 20 is end-of-life) and runs on Alpine 3.24; vite and puppeteer-core
+  are updated to releases that clear all open `npm audit` advisories.
+- **Faster page loads.** Responses are now gzip-compressed (the history chart
+  data shrinks about fivefold), and the pathways pages no longer re-read every
+  route's requirements on each view.
+
 ### Fixed
 
 - **Tracker-supplied group colours and icons are validated** before they reach
@@ -20,13 +41,6 @@ All notable changes to Yata, newest first. Versions are date-based builds:
   alert.** Discord messages no longer allow mentions, so an event named
   `@everyone` stays text; Telegram messages are escaped, so a stray `_` or `*`
   no longer gets them rejected.
-### Security
-
-- **A saved key or cookie no longer follows a URL to another host.** Changing
-  a tracker's URL, or the qui, Prowlarr or Jackett address, to a different
-  host, port or scheme now clears the saved key, cookie or password unless a
-  new one is entered with it, and a tracker Test against an unsaved address
-  uses only what is typed. Path and trailing-slash edits keep them as before.
 - **After signing out and back in, the alerts bell wouldn't open** and a
   Pathways step or pin button undid itself in the same click.
 - **The "7d" change on the Uploaded, Downloaded and Buffer cards counted a
@@ -38,22 +52,11 @@ All notable changes to Yata, newest first. Versions are date-based builds:
 - **The dashboard came up blank when the browser blocks site storage.**
 - **A manual refresh during a background one could be overwritten** by the
   older reply, and a slow qui piled up overlapping requests.
-### Changed
-
-- **Build toolchain refreshed.** The image builds the frontend on Node 24 LTS
-  (Node 20 is end-of-life) and runs on Alpine 3.24; vite and puppeteer-core
-  are updated to releases that clear all open `npm audit` advisories.
 - **Login protection is harder to get round.** Every password prompt now
   counts towards the five-attempt lockout, parallel guesses can no longer
   slip past it, a spoofed `X-Forwarded-For` no longer resets it, and removing
   the account asks for your 2FA code when 2FA is on. Turning 2FA on signs out
   every other session.
-### Security
-
-- **Tracker credentials stay on the tracker's own host.** A definition path not
-  starting with a single "/" is refused, since it could send the API key or
-  cookie elsewhere; API keys no longer follow redirects to another host; and
-  responses from trackers and Prowlarr/Jackett/QUI are capped at 8 MiB.
 - **Growth rates measured across UTC midnight were too low** (a tracker on its
   second day could read 6.25 GiB/day instead of 100), inflating target ETAs
   and raising false "behind pace" and seed-size drop alerts. Rates now use
@@ -68,11 +71,6 @@ All notable changes to Yata, newest first. Versions are date-based builds:
 - **`/api/summary` never reported `warnings`.**
 - **Importing an older config** could leave alerts with nowhere to record and
   a renamed tracker type not collecting until the next restart.
-### Changed
-
-- **Faster page loads.** Responses are now gzip-compressed (the history chart
-  data shrinks about fivefold), and the pathways pages no longer re-read every
-  route's requirements on each view.
 
 ## [Beta-20261011]
 
