@@ -48,6 +48,12 @@ All notable changes to Yata, newest first. Versions are date-based builds:
   slip past it, a spoofed `X-Forwarded-For` no longer resets it, and removing
   the account asks for your 2FA code when 2FA is on. Turning 2FA on signs out
   every other session.
+### Security
+
+- **Tracker credentials stay on the tracker's own host.** A definition path not
+  starting with a single "/" is refused, since it could send the API key or
+  cookie elsewhere; API keys no longer follow redirects to another host; and
+  responses from trackers and Prowlarr/Jackett/QUI are capped at 8 MiB.
 
 ## [Beta-20261011]
 
