@@ -68,6 +68,11 @@ All notable changes to Yata, newest first. Versions are date-based builds:
 - **`/api/summary` never reported `warnings`.**
 - **Importing an older config** could leave alerts with nowhere to record and
   a renamed tracker type not collecting until the next restart.
+### Changed
+
+- **Faster page loads.** Responses are now gzip-compressed (the history chart
+  data shrinks about fivefold), and the pathways pages no longer re-read every
+  route's requirements on each view.
 
 ## [Beta-20261011]
 
