@@ -54,6 +54,10 @@ All notable changes to Yata, newest first. Versions are date-based builds:
   starting with a single "/" is refused, since it could send the API key or
   cookie elsewhere; API keys no longer follow redirects to another host; and
   responses from trackers and Prowlarr/Jackett/QUI are capped at 8 MiB.
+- **Growth rates measured across UTC midnight were too low** (a tracker on its
+  second day could read 6.25 GiB/day instead of 100), inflating target ETAs
+  and raising false "behind pace" and seed-size drop alerts. Rates now use
+  when each value was actually recorded, and are much cheaper to compute.
 
 ## [Beta-20261011]
 
